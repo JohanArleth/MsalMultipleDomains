@@ -1,0 +1,15 @@
+﻿@page "/authentication/{action}"
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal
+
+
+@inject IAccessTokenProviderAccessor AccessTokenProviderAccessor
+@inject NavigationManager Navigation
+
+<RemoteAuthenticatorView Action="@Action" />
+
+@code {
+    [Parameter]
+    public string Action { get; set; } = null!;
+
+}

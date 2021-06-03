@@ -1,0 +1,37 @@
+﻿@page "/"
+
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize]
+
+@inject IAccessTokenProviderAccessor AccessTokenProviderAccessor
+@inject NavigationManager Navigation
+
+<p>
+    This will trigger a redirect and once we get back to the app, we will get an error on a token request because it will
+    try to get both the graph scopes and the api scope
+</p>
+<button @onclick="(e) => GetGraphScopes()">Get graph scopes</button>
+
+@code {
+
+    async void GetGraphScopes()
+    {
+        Console.WriteLine("GetGraphScopes");
+        string[] scopes = new[] { "https://graph.microsoft.com/Mail.ReadWrite", "https://graph.microsoft.com/Mail.Send" };
+
+        var result = await AccessTokenProviderAccessor.TokenProvider.RequestAccessToken(
+        new AccessTokenRequestOptions()
+        {
+            Scopes = scopes
+        });
+
+        if (!result.TryGetToken(out var token))
+        {
+            Navigation.NavigateTo(result.RedirectUrl);
+        }
+    }
+}

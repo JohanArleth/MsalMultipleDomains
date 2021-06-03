@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "NECSBlazorClient",
+            "type": "blazorwasm",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/NECSBlazorClient",
+            "url": "https://localhost:8001/"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Launch all projects",
+            "configurations": [
+                "NECSApi",
+                "NECSDocumentApi",
+                "NECSBlazorClient"
+            ]
+        }
+    ]
+}
